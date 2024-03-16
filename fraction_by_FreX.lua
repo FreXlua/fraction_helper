@@ -44,14 +44,6 @@ function main()
     else
         _, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
         nick = sampGetPlayerNickname(id)
-        sampAddChatMessage('[INFO]: {FFFFFF}Loaded. Author: {20B2AA}t.me/frex1ugur {FFFFFF}дя {20B2AA}ugur_ibr{FFFFFF}. Cmd: {20B2AA}/fh', 0x20B2AA)
-        sampRegisterChatCommand('vo1', cmd_vo1)
-        sampRegisterChatCommand('vo2', cmd_vo2)
-        sampRegisterChatCommand('vo3', cmd_vo3)
-        sampRegisterChatCommand('vo4', cmd_vo4)
-        sampRegisterChatCommand('fh', cmd_fh)
-        sampRegisterChatCommand('name', cmd_name)
-        sampRegisterChatCommand('podpis', cmd_podpis)
         downloadUrlToFile(update_url, update_path, function(id, status)
             if status == dlstatus.STATUS_ENDDOWNLOADDATA then
                 updateIni = inicfg.load(nil, update_path)
@@ -76,6 +68,14 @@ function main()
                 break
             end
         end
+        sampAddChatMessage('[INFO]: {FFFFFF}Loaded. Author: {20B2AA}t.me/frex1ugur {FFFFFF}дя {20B2AA}ugur_ibr{FFFFFF}. Cmd: {20B2AA}/fh', 0x20B2AA)
+        sampRegisterChatCommand('vo1', cmd_vo1)
+        sampRegisterChatCommand('vo2', cmd_vo2)
+        sampRegisterChatCommand('vo3', cmd_vo3)
+        sampRegisterChatCommand('vo4', cmd_vo4)
+        sampRegisterChatCommand('fh', cmd_fh)
+        sampRegisterChatCommand('name', cmd_name)
+        sampRegisterChatCommand('podpis', cmd_podpis)
     end
 end
 
