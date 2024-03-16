@@ -10,9 +10,9 @@ local script_vers = 2
 local script_vers_text = '2.00'
 
 local update_url = 'https://raw.githubusercontent.com/FreXlua/fraction_helper/main/upd.ini'
-local update_path = getWorkingDirectory() .. '/upd.ini'
+local update_path = getWorkingDirectory() .. '/update.ini'
 
-local script_url = 'https://raw.githubusercontent.com/FreXlua/fraction_helper/main/fraction_helper_by_FreX.lua'
+local script_url = 'https://raw.githubusercontent.com/FreXlua/fraction_helper/main/fraction_by_FreX.lua'
 local script_path = thisScript().path
 
 local def = {
@@ -39,17 +39,24 @@ function main()
         return false
     end
     if not res() then
-        sampAddChatMessage('РќРµС‚ РґРѕСЃС‚СѓРїР°! РЎРІСЏР¶РёС‚РµСЃСЊ СЃРѕ РјРЅРѕР№ С‡С‚Рѕ-Р±С‹ РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє СЃРєСЂРёРїС‚Сѓ Р”РЎ ugur_ibr РўР“ @frex1ugur', 0xFF0000)
+        sampAddChatMessage('Нет доступа! Свяжитесь со мной что-бы получить доступ к скрипту ДС ugur_ibr ТГ @frex1ugur', 0xFF0000)
         thisScript():unload()
     else
         _, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
         nick = sampGetPlayerNickname(id)
-
+        sampAddChatMessage('[INFO]: {FFFFFF}Loaded. Author: {20B2AA}t.me/frex1ugur {FFFFFF}ДС {20B2AA}ugur_ibr{FFFFFF}. Cmd: {20B2AA}/fh', 0x20B2AA)
+        sampRegisterChatCommand('vo1', cmd_vo1)
+        sampRegisterChatCommand('vo2', cmd_vo2)
+        sampRegisterChatCommand('vo3', cmd_vo3)
+        sampRegisterChatCommand('vo4', cmd_vo4)
+        sampRegisterChatCommand('fh', cmd_fh)
+        sampRegisterChatCommand('name', cmd_name)
+        sampRegisterChatCommand('podpis', cmd_podpis)
         downloadUrlToFile(update_url, update_path, function(id, status)
             if status == dlstatus.STATUS_ENDDOWNLOADDATA then
                 updateIni = inicfg.load(nil, update_path)
                 if tonumber(updateIni.info.vers) > script_vers then
-                    sampAddChatMessage('Р•СЃС‚СЊ РѕР±РЅРѕРІР»РµРЅРёРµ СЃРєСЂРёРїС‚Р°! РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј...', 0xff0000)
+                    sampAddChatMessage('Есть обновление скрипта! Устанавливаем...', 0xff0000)
                     update_state = true
                 end
                 os.remove(update_path)
@@ -62,89 +69,81 @@ function main()
             if update_state then
                 downloadUrlToFile(script_url, script_path, function(id, status)
                     if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                        sampAddChatMessage('РћР±РЅРѕРІР»РµРЅРёРµ СЃРєР°С‡Р°РЅРѕ!', 0xff0000)
+                        sampAddChatMessage('Обновление скачано!', 0xff0000)
                         thisScript():reload()
                     end
                 end)
                 break
             end
         end
-        sampAddChatMessage('[INFO]: {FFFFFF}Loaded. Author: {20B2AA}t.me/frex1ugur {FFFFFF}Р”РЎ {20B2AA}ugur_ibr{FFFFFF}. Cmd: {20B2AA}/fh', 0x20B2AA)
-        sampRegisterChatCommand('vo1', cmd_vo1)
-        sampRegisterChatCommand('vo2', cmd_vo2)
-        sampRegisterChatCommand('vo3', cmd_vo3)
-        sampRegisterChatCommand('vo4', cmd_vo4)
-        sampRegisterChatCommand('fh', cmd_fh)
-        sampRegisterChatCommand('name', cmd_name)
-        sampRegisterChatCommand('podpis', cmd_podpis)
     end
 end
 
 function cmd_name(arg)
     mainIni.config.name = arg
     if inicfg.save(mainIni, directIni) then
-        sampAddChatMessage('РЈСЃРїРµС€РЅРѕ', -1)
+        sampAddChatMessage('Успешно', -1)
     end
 end
 
 function cmd_podpis(arg)
     mainIni.config.podpis = arg
     if inicfg.save(mainIni, directIni) then
-        sampAddChatMessage('РЈСЃРїРµС€РЅРѕ', -1)
+        sampAddChatMessage('Успешно', -1)
     end
 end
 
 function cmd_fh()
-    sampShowDialog(1488, '{ff0000}Fraction Helper by FreX', '{20B2AA}Р”Р°РЅРЅС‹Р№ С…РµР»РїРµСЂ СЃРѕР·РґР°РЅ РґР»СЏ РїСЂРѕРґР°Р¶Рё СЂР°РЅРіРѕРІ РІ Р§Р°СЃС‚РЅС‹С… Р¤СЂР°РєС†РёСЏС…\n{20B2AA}Р’РђР–РќР«Р™ РџРЈРќРљРў!!! /name [Р’Р°С€Рµ РёРјСЏ РЅР° СЂСѓСЃСЃРєРѕРј] Рё /podpis [Р’Р°С€Рµ РёРјСЏ РЅР° Р°РЅРіР».]\n{20B2AA}РџРѕ РєРѕРјР°РЅРґРµ /vo1 /vo2 /vo3 РІС‹ СЃРїСЂР°С€РёРІР°РµС‚Рµ РѕР±С‹С‡РЅС‹Рµ РІРѕРїСЂРѕСЃС‹...\n{20B2AA}...РїРѕ РєРѕРјР°РЅРґРµ /vo4 РІС‹ РѕС‚С‹РіСЂС‹РІР°РµС‚Рµ РіР»Р°РІРЅС‹Р№ РїСѓРЅРєС‚ РїСЂРѕРґР°Р¶Рё СЂР°РЅРіР°\n{20B2AA}Р•СЃС‚СЊ РµС‰Рµ РјРЅРѕРіРѕ С„СѓРЅРєС†РёР№ РєРѕС‚РѕСЂС‹Рµ СѓРїСЂРѕС‰Р°СЋС‚ РёРіСЂСѓ Р—Р°РјР°Рј/Р›РёРґРµСЂСѓ С„СЂР°РєС†РёРё', 'Р—Р°РєСЂС‹С‚СЊ', '', 0)
+    sampShowDialog(1488, '{ff0000}Fraction Helper by FreX', '{20B2AA}Данный хелпер создан для продажи рангов в Частных Фракциях\n{20B2AA}ВАЖНЫЙ ПУНКТ!!! /name [Ваше имя на русском] и /podpis [Ваше имя на англ.]\n{20B2AA}По команде /vo1 /vo2 /vo3 вы спрашиваете обычные вопросы...\n{20B2AA}...по команде /vo4 вы отыгрываете главный пункт продажи ранга\n{20B2AA}Есть еще много функций которые упрощают игру Замам/Лидеру фракции', 'Закрыть', '', 0)
 end
 
 function cmd_vo1()
     lua_thread.create(function()
-        sampSendChat('РЇ РґРѕР»Р¶РµРЅ Р·Р°РґР°РІР°С‚СЊ РІР°Рј РЅРµСЃРєРѕР»СЊРєРѕ РІРѕРїСЂРѕСЃРѕРІ, РЅР°С‡РЅС‘Рј СЃ РїРµСЂРІРѕРіРѕ.')
+        sampSendChat('Я должен задавать вам несколько вопросов, начнём с первого.')
         wait(1000)
-        sampSendChat('РЎРѕРіР»Р°СЃРЅС‹ Р»Рё РІС‹, РѕРїР»Р°С‚РёС‚СЊ РїРѕР»РЅСѓСЋ СЃС‚РѕРёРјРѕСЃС‚СЊ Р·Р° РєРѕРЅС‚СЂР°РєС‚?')
+        sampSendChat('Согласны ли вы, оплатить полную стоимость за контракт?')
     end)
 end
 
 function cmd_vo2()
     lua_thread.create(function()
-        sampSendChat('РЎРѕРіР»Р°СЃРЅС‹ Р»Рё РІС‹ РїРѕРґРїРёСЃР°С‚СЊ РєРѕРЅС‚СЂР°РєС‚ РЅР° РЅРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹Р№ СЃСЂРѕРє?')
+        sampSendChat('Согласны ли вы подписать контракт на неопределённый срок?')
     end)
 end
 
 function cmd_vo3()
     lua_thread.create(function()
-        sampSendChat('РЎРѕРіР»Р°СЃРЅС‹ Р»Рё РІС‹ РїРѕРґС‡РёРЅСЏС‚СЊСЃСЏ С‚РµРј Р¶Рµ РїСЂР°РІРёР»Р°Рј РѕСЂРіР°РЅРёР·Р°С†РёРё, РєР°Рє Рё Р·Р°РєРѕРЅРѕРґР°С‚РµР»СЊСЃС‚РІСѓ?')
+        sampSendChat('Согласны ли вы подчиняться тем же правилам организации, как и законодательству?')
     end)
 end
 
 function cmd_vo4()
     lua_thread.create(function()
-        sampSendChat('/do РќР°РїСЂРѕС‚РёРІ РїСЂР°РІРѕР№ СЂСѓРєРё '.. mainIni.config.name ..'Р° РЅР°С…РѕРґРёС‚СЊСЃСЏ Р·Р°РєСЂС‹С‚Р°СЏ С‚СѓРјР±Р° СЃ РєРѕРЅС‚СЂР°РєС‚Р°РјРё.')
+        sampSendChat('/do Напротив правой руки '.. mainIni.config.name ..'а находиться закрытая тумба с контрактами.')
         wait(1500)
-        sampSendChat('/me РЅРµРјРЅРѕРіРѕ РїСЂРѕС‚СЏРЅСѓРІ РїСЂР°РІСѓСЋ СЂСѓРєСѓ РІРїРµСЂС‘Рґ, СЃС…РІР°С‚РёР»СЃСЏ Р·Р° СЂСѓС‡РєСѓ РїРѕР»РѕС‡РєРё С‚СѓРјР±С‹.')
+        sampSendChat('/me немного протянув правую руку вперёд, схватился за ручку полочки тумбы.')
         wait(1500)
-        sampSendChat('/me РїРѕС‚СЏРЅСѓРІ СЂСѓС‡РєСѓ РЅР° СЃРµР±СЏ, РѕС‚РєСЂС‹Р» РїРѕР»РѕС‡РєСѓ ')
+        sampSendChat('/me потянув ручку на себя, открыл полочку ')
         wait(1500)
-        sampSendChat('/do Р’ РїРѕР»РѕС‡РєРµ С‚СѓРјР±С‹ РЅР°С…РѕРґРёС‚СЊСЃСЏ Р‘Р»Р°РЅРє СЃ РїСѓСЃС‚С‹Рј РєРѕРЅС‚СЂР°РєС‚РѕРј.')
+        sampSendChat('/do В полочке тумбы находиться Бланк с пустым контрактом.')
         wait(1500)
-        sampSendChat('/me РѕС‚РїСѓСЃС‚РёРІ СЂСѓС‡РєСѓ РїРѕР»РѕС‡РєРё, РїСЂРѕС‚СЏРЅСѓР» СЂСѓРєСѓ Рє Р±Р»Р°РЅРєСѓ, РїРѕСЃР»Рµ С‡РµРіРѕ РґРѕСЃС‚Р°Р» РµРіРѕ')
+        sampSendChat('/me отпустив ручку полочки, протянул руку к бланку, после чего достал его')
         wait(1500)
-        sampSendChat('/me РїРѕР»РѕР¶РёРІ РєРѕРЅС‚СЂР°РєС‚ РЅР° СЃС‚РѕР», СЂР°Р·РІРµСЂРЅСѓР» РµРіРѕ РІ СЃС‚РѕСЂРѕРЅСѓ С‡РµР»РѕРІРµРєР° РЅР°РїСЂРѕС‚РёРІ')
+        sampSendChat('/me положив контракт на стол, развернул его в сторону человека напротив')
         wait(1500)
-        sampSendChat('/do РљРѕРЅС‚СЂР°РєС‚ РЅР°РїСЂРѕС‚РёРІ С‡РµР»РѕРІРµРєР°.')
+        sampSendChat('/do Контракт напротив человека.')
         wait(1500)
-        sampSendChat('/do РЎРѕРґРµСЂР¶РёРјРѕРµ РєРѕРЅС‚СЂР°РєС‚Р°: Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р¶РµР»Р°РµРјРѕРіРѕ СЂР°РЅРіР° РІР°Рј РЅСѓР¶РЅРѕ РїРµСЂРµРІРµСЃС‚Рё....')
+        sampSendChat('/do Содержимое контракта: Для получения желаемого ранга вам нужно перевести....')
         wait(1500)
-        sampSendChat('/do ...РћРїСЂРµРґРµР»С‘РЅРЅСѓСЋ СЃСѓРјРјСѓ РґРµРЅРµРі, РЅР° Р±Р°РЅРєРѕРІСЃРєСѓСЋ СЏР№С‡РµР№РєСѓ Р”РёСЂРµРєС‚РѕСЂР° ....')
+        sampSendChat('/do ...Определённую сумму денег, на банковскую яйчейку Директора ....')
         wait(1500)
-        sampSendChat('/do ...РџРѕСЃР»Рµ С‡РµРіРѕ, РІР°Рј РІС‹РґР°РґСѓС‚ Р±РµР№РґР¶РёРє СЃ РЅРѕРІРѕР№ РґРѕР»Р¶РЅРѕСЃС‚СЊСЋ Рё С„РѕСЂРјРѕР№...')
+        sampSendChat('/do ...После чего, вам выдадут бейджик с новой должностью и формой...')
         wait(1500)
-        sampSendChat('/do РџРѕРґРїРёСЃСЊ: '.. mainIni.config.podpis ..'  РџРѕРґРїРёСЃСЊ РїРѕРєСѓРїР°С‚РµР»СЏ:')
+        sampSendChat('/do Подпись: '.. mainIni.config.podpis ..'  Подпись покупателя:')
         wait(5000)
-        sampSendChat('/b /me РѕР·РЅР°РєРѕРјРёРІС€РёСЃСЊ СЃ РєРѕРЅС‚СЂР°РєС‚РѕРј, РІР·СЏР» СЂСѓС‡РєСѓ СЃРѕ СЃС‚РѕР»Р°, Рё РїРѕРґРїРёСЃР°Р» РµРіРѕ')
+        sampSendChat('/b /me ознакомившись с контрактом, взял ручку со стола, и подписал его')
         wait(5000)
-        sampSendChat('/b /me РґРѕСЃС‚Р°РІ С‚РµР»РµС„РѕРЅ СЃ РїСЂР°РІРѕРіРѕ РєР°СЂРјР°РЅР°, РѕС‚РєСЂС‹Р» РїСЂРёР»РѕР¶РµРЅРёРµ Р±Р°РЅРєР°, РїРѕСЃР»Рµ С‡РµРіРѕ РїРµСЂРµРІС‘Р» СЃСѓРјРјСѓ РґРµРЅРµРі')
+        sampSendChat('/b /me достав телефон с правого кармана, открыл приложение банка, после чего перевёл сумму денег')
     end)
 end
 
