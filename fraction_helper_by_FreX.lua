@@ -6,8 +6,8 @@ local directIni = 'moonloader\\config\\frex.ini'
 
 update_state = false
 
-local script_vers = 3
-local script_vers_text = '3.00'
+local script_vers = 4
+local script_vers_text = '4.00'
 
 local update_url = 'https://raw.githubusercontent.com/FreXlua/fraction_helper/main/upd.ini'
 local update_path = getWorkingDirectory() .. '/update.ini'
