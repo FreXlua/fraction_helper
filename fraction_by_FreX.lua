@@ -75,7 +75,7 @@ function main()
             sampRegisterChatCommand('fh', cmd_fh)
             sampRegisterChatCommand('name', cmd_name)
             sampRegisterChatCommand('podpis', cmd_podpis)
-            wait(-1)
+            wait(300)
         end
     end
 end
