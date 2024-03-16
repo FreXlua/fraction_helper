@@ -42,7 +42,6 @@ function main()
         sampAddChatMessage('Нет доступа! Свяжитесь со мной что-бы получить доступ к скрипту ДС ugur_ibr ТГ @frex1ugur', 0xFF0000)
         thisScript():unload()
     else
-        sampAddChatMessage('[INFO]: {FFFFFF}Loaded. Author: {20B2AA}t.me/frex1ugur {FFFFFF}ДС {20B2AA}ugur_ibr{FFFFFF}. Cmd: {20B2AA}/fh', 0x20B2AA)
         _, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
         nick = sampGetPlayerNickname(id)
 
@@ -70,6 +69,7 @@ function main()
                 break
             end
         end
+        sampAddChatMessage('[INFO]: {FFFFFF}Loaded. Author: {20B2AA}t.me/frex1ugur {FFFFFF}ДС {20B2AA}ugur_ibr{FFFFFF}. Cmd: {20B2AA}/fh', 0x20B2AA)
         sampRegisterChatCommand('vo1', cmd_vo1)
         sampRegisterChatCommand('vo2', cmd_vo2)
         sampRegisterChatCommand('vo3', cmd_vo3)
